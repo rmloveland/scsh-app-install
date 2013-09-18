@@ -1,10 +1,19 @@
-;;;; -*- Scheme48 -*-
+;;;; main.scm --- Deploy Scsh `apps' to users.        -*- Scheme48 -*-
 
+;;; OVERVIEW
+;;
+;; This package allows you to deploy Scsh command-line apps to
+;; users. At a high level, it does the following:
+;;
+;; 1. Dump a static UNIX executable into ~/bin/.<appname>
+;;
+;; 2. Link the executable into the user's ~/bin/<appname>
+;;
+;; We bother with this indirection so that you can use the .<appname>
+;; directory to store any other files that might be needed by your
+;; application.
 
-;;--------------------------------------------------------------------
-;; Variables.
-
-(define app-name #f)
+;;; HOW TO USE IT
 
 ;;--------------------------------------------------------------------
 ;; Procedures.
