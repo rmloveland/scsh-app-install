@@ -78,7 +78,9 @@ EOF
 	 (user-binary-name (make-user-binary-name name)))
     (begin
       (create-app-dir app-dir-name)
-      (copy-vm-to-app-dir app-dir-name)
+      ;; Don't bother with the below step: Apple doesn't allow
+      ;; creating statically linked binaries. What a pain.
+      ;; (copy-vm-to-app-dir app-dir-name)
       (dump-app-image app-image-name)
       (link-app-image-as-user-binary app-image-name user-binary-name)
       (set-user-binary-executable! user-binary-name))))
