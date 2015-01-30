@@ -1,0 +1,16 @@
+Scsh Command-Line App Installer
+-------------------------------
+
++ `(DEPLOY-APP "name")`: This procedure will dump an executable scsh
+  image of the currently loaded procedure called `MAIN` in your
+  `$HOME/bin/.${name}/${name}` folder, and create a symlink to the
+  executable scsh image in `$HOME/bin/${name}`.
+
+Example:
+
+	> (deploy-app "metaprinter")
+	Channel closed in dumped image: standard input
+	Channel closed in dumped image: standard output
+	Channel closed in dumped image: standard error
+	Writing /Users/rloveland/bin/.metaprinter/metaprinter
+	>
