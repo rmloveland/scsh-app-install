@@ -13,8 +13,6 @@
 ;; directory to store any other files that might be needed by your
 ;; application.
 
-;;; HOW TO USE IT
-
 ;;--------------------------------------------------------------------
 ;; Procedures.
 
@@ -33,7 +31,8 @@
   (string-append app-dir "/" name))
 
 (define (create-app-dir dir)
-  (create-directory dir))
+  (if (not (file-exists? dir))
+      (create-directory dir)))
 
 (define (copy-vm-to-app-dir dir)
   (run (cp /usr/local/lib/scsh/scshvm ,dir)))
