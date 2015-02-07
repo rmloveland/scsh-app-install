@@ -38,30 +38,30 @@
   (run (cp /usr/local/lib/scsh/scshvm ,dir)))
 
 (define (dump-app-image image)
-  (begin (dump-scsh-program main image)
-	 (prepend-shebang-lines-to-image image)))
+  (begin
+    (dump-scsh-program main image)
+    (prepend-shebang-lines-to-image image)))
 
 (define (prepend-shebang-lines-to-image image)
-  (let* ((output-port (open-file image open/write))
-	 (string #<<EOF
-#!scshvm \
--o scshvm -i
+  (let* ((shebang #<<EOF
+#!/usr/local/lib/scsh/scshvm \
+-o  /usr/local/lib/scsh/scshvm -i
 
 EOF
-))
-    (dynamic-wind
-      ;; We need to turn off buffering because Scsh's implementation
-      ;; of SEEK can't handle buffered I/O ports.
-      (lambda () (set-port-buffering output-port bufpol/none))
-      (lambda () (begin
-		   (seek output-port 0)
-		   (display string output-port)))
-      (lambda () (close output-port)))))
+)
+	 (tmpdir (getenv "TMPDIR"))
+	 (shebang-file (string-append tmpdir "scsh-shebang.txt"))
+	 (image-orig (string-append image ".orig")))
+    (run (echo ,shebang) (> ,shebang-file))	; save shebang in temp file
+    (run (mv ,image ,image-orig))		; 
+    (run (cat ,shebang-file ,image-orig) (> ,image))))
 
 (define (make-user-binary-name app-name)
   (string-append (make-user-bin-dir-name) "/" app-name))
 
 (define (link-app-image-as-user-binary app-image-name user-binary-name)
+  (if (file-exists? user-binary-name)
+      (run (rm ,user-binary-name)))
   (run (ln -s ,app-image-name ,user-binary-name)))
 
 (define (set-file-executable! f)
