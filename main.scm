@@ -1,20 +1,6 @@
-;;;; main.scm --- Deploy Scsh `apps' to users.        -*- Scheme48 -*-
+;;;; main.scm
 
-;;; OVERVIEW
-;;
-;; This package allows you to deploy Scsh command-line apps to
-;; users. At a high level, it does the following:
-;;
-;; 1. Dump a static UNIX executable into ~/bin/.<appname>
-;;
-;; 2. Link the executable into the user's ~/bin/<appname>
-;;
-;; We bother with this indirection so that you can use the .<appname>
-;; directory to store any other files that might be needed by your
-;; application.
-
-;;--------------------------------------------------------------------
-;; Procedures.
+;;; internal procedures
 
 (define (make-user-bin-dir-name)
   (string-append
@@ -71,15 +57,16 @@ EOF
 
 (define set-user-binary-executable! set-file-executable!)
 
+;;; external procedure
+
 (define (deploy-app name)
   (let* ((app-dir-name (make-app-dir-name name))
 	 (app-image-name (make-app-image-name app-dir-name name))
 	 (user-binary-name (make-user-binary-name name)))
     (begin
       (create-app-dir app-dir-name)
-      ;; Don't bother with the below step: Apple doesn't allow
-      ;; creating statically linked binaries. What a pain.
-      ;; (copy-vm-to-app-dir app-dir-name)
       (dump-app-image app-image-name)
       (link-app-image-as-user-binary app-image-name user-binary-name)
       (set-user-binary-executable! user-binary-name))))
+
+;;; eof
