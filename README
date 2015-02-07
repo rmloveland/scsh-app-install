@@ -1,12 +1,18 @@
 Scsh Command-Line App Installer
 -------------------------------
 
+Utility code for easily generating and installing a standalone
+command-line app written in scsh.  The app is installed in its own
+directory under `$HOME/bin/.${app-name}` where it can include
+arbitrary config files, data, etc.
+
 Public procedures:
 
-+ `(DEPLOY-APP "name")`: This procedure will dump an executable scsh
-  image of the currently loaded `MAIN` procedure in
-  `$HOME/bin/.${name}/${name}`, and create a symlink to that image
-  called `$HOME/bin/${name}`, so you can run it from the shell.
++ `(DEPLOY-APP "app-name")`: This procedure will dump an executable
+  scsh image of the currently loaded `MAIN` procedure in
+  `$HOME/bin/.${app-name}/${app-name}`, and create a symlink to that
+  image called `$HOME/bin/${app-name}`, so you can run it from the
+  shell.
 
 Example:
 
