@@ -1,12 +1,14 @@
 Scsh Command-Line App Installer
--------------------------------
+===============================
 
 Utility code for easily generating and installing a standalone
 command-line app written in scsh.  The app is installed in its own
 directory under `$HOME/bin/.${app-name}` where it can include
 arbitrary config files, data, etc.
 
-Public procedures:
+
+Public procedures
+-----------------
 
 + `(DEPLOY-APP PROC "app-name")`: This procedure will dump an
   executable scsh image of the currently loaded main procedure *PROC*
@@ -17,7 +19,9 @@ Public procedures:
   known as *PROG+ARGS*.  Note that this procedure is **destructive**,
   that is, it will overwrite the previous scsh image file and symlink.
 
-Example:
+
+Example
+-------
 
     > ; From the scsh REPL
 	> (deploy-app main "metaprinter")
@@ -29,3 +33,8 @@ Example:
     $ # From the shell
     $ metaprinter 
     Usage: metaprinter --{std,rpt} SERVICE
+
+License
+-------
+
+See the file named COPYING in this directory.
