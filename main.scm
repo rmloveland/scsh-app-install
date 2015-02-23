@@ -23,9 +23,9 @@
 (define (copy-vm-to-app-dir dir)
   (run (cp /usr/local/lib/scsh/scshvm ,dir)))
 
-(define (dump-app-image image)
+(define (dump-app-image proc image)
   (begin
-    (dump-scsh-program main image)
+    (dump-scsh-program proc image)
     (prepend-shebang-lines-to-image image)))
 
 (define (prepend-shebang-lines-to-image image)
@@ -59,13 +59,13 @@ EOF
 
 ;;; external procedure
 
-(define (deploy-app name)
+(define (deploy-app proc name)
   (let* ((app-dir-name (make-app-dir-name name))
 	 (app-image-name (make-app-image-name app-dir-name name))
 	 (user-binary-name (make-user-binary-name name)))
     (begin
       (create-app-dir app-dir-name)
-      (dump-app-image app-image-name)
+      (dump-app-image proc app-image-name)
       (link-app-image-as-user-binary app-image-name user-binary-name)
       (set-user-binary-executable! user-binary-name))))
 
