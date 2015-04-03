@@ -2,9 +2,15 @@ Scsh Command-Line App Installer
 ===============================
 
 Utility code for easily generating and installing a standalone
-command-line app written in scsh.  The app is installed in its own
+command-line "app" written in scsh.  The app is installed in its own
 directory under `$HOME/bin/.${app-name}` where it can include
 arbitrary config files, data, etc.
+
+Behind the scenes, this is all just to automate:
+
++ loading the app's main procedure
++ dumping an image file procedure
++ linking the whole mess and making it executable.
 
 
 Public procedures
@@ -33,6 +39,7 @@ Example
     $ # From the shell
     $ metaprinter 
     Usage: metaprinter --{std,rpt} SERVICE
+
 
 License
 -------
