@@ -1,6 +1,6 @@
 ;;;; interfaces.scm
 
 (define-interface app-install-interface
-  (export deploy-app!))
+  (export install-app!))
 
 ;;; eof

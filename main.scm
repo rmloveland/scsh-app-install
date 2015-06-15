@@ -59,7 +59,7 @@ EOF
 
 ;;; external procedure
 
-(define (deploy-app! proc name)
+(define (install-app! proc name)
   (let* ((app-dir-name (make-app-dir-name name))
 	 (app-image-name (make-app-image-name app-dir-name name))
 	 (user-binary-name (make-user-binary-name name)))
