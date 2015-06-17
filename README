@@ -52,4 +52,5 @@ Example
 License
 -------
 
-See the file named COPYING in this directory.
+This code is available under the same license as scsh 0.6.7 itself.
+See the file named COPYING in this directory for details.
