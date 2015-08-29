@@ -31,7 +31,7 @@
 (define (prepend-shebang-lines-to-image image)
   (let* ((shebang #<<EOF
 #!/usr/local/lib/scsh/scshvm \
--o  /usr/local/lib/scsh/scshvm -i
+-h 8000000 -o  /usr/local/lib/scsh/scshvm -i
 
 EOF
 )

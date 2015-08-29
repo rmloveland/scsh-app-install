@@ -33,8 +33,8 @@ Example
 
     > ; From the scsh REPL
 
-    > ,config ,load /Users/rloveland/Code/scsh-app-install/interfaces.scm
-    > ,config ,load /Users/rloveland/Code/scsh-app-install/packages.scm
+    > ,config ,load /Users/rloveland/Code/personal/scsh-app-install/interfaces.scm
+    > ,config ,load /Users/rloveland/Code/personal/scsh-app-install/packages.scm
     > ,open app-install
     > ,bound? install-app!
 
