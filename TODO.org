@@ -2,10 +2,4 @@
 #+author: Rich Loveland
 #+email: r@rmloveland.com
 
-* Current
-
 ** TODO Rewrite Git history to use correct email
-
-* Staging
-
-* Someday/Maybe
