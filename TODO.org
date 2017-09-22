@@ -2,4 +2,50 @@
 #+author: Rich Loveland
 #+email: r@rmloveland.com
 
+** TODO Figure out a way to do user installs
+
+   Basically, we should be able to:
+
+   + ship a tarball to the end user
+   + tell them to =brew install scsh= (or whatever their OS needs)
+   + tell them to unzip the tarball
+   + inside the directory, run a scsh program =./install= and it
+     should Just Work (tm)
+
+   Maybe this should be a separate library?  The "create a user
+   install" library could be a separate item that uses this lib
+   internally.
+
+** TODO INSTALL-APP! should take a config/data argument
+
+   =(install-app! main "the-app")=
+
+   should become
+
+   =(install-app! main "the-app" . data+config)=
+
+   where =DATA+CONFIG= is the name of a directory (or perhaps a list
+   of files?) containing necessary data and configuration files used
+   by the application.
+
+   For example, a CLI client for a web API may require authentication
+   data in the form of JSON files, need a place to store cookies, etc.
+
+   Here's what the metaprinter directory looks like, for reference:
+
+   #+BEGIN_SRC text
+   ls -la ~/bin/.metaprinter/
+   total 10272
+   drwxr-xr-x  10 rloveland      staff        340 2015-08-27  2015 .
+   drwxr-xr-x 193 rloveland      staff       6562 2016-05-05 19:58 ..
+   -rw-------   1 rloveland      staff        114 2015-04-21  2015 auth-prod.json
+   -rw-------   1 rloveland      staff         83 2015-04-29  2015 auth-sand.json
+   -rw-r--r--   1 rloveland      staff        219 2015-08-26  2015 cookies.prod
+   -rw-r--r--   1 rloveland      staff        298 2015-08-27  2015 cookies.sand
+   -rwxrw-rwt   1 rloveland      staff    5255430 2015-08-27  2015 metaprinter
+   -rwxrw-rwt   1 rloveland      staff    5255353 2015-08-27  2015 metaprinter.orig
+   -rw-r--r--   1 rloveland      staff          0 2015-08-26  2015 sentinel.prod
+   -rw-r--r--   1 rloveland      staff          0 2015-08-27  2015 sentinel.sand
+   #+END_SRC
+
 ** TODO Rewrite Git history to use correct email
