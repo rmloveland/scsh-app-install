@@ -20,8 +20,18 @@
   (if (not (file-exists? dir))
       (create-directory dir)))
 
+(define (locate-scshvm)
+  (let ((o1 "/opt/lib/scsh/scshvm")
+        (o2 "/usr/local/lib/scsh/scshvm")
+        (scshvm-location #f))
+    (cond ((file-exists? o1 (set! scshvm-location o1)))
+          ((file-exists? o2 (set! scshvm-location o2)))
+          (else (error "Couldn't locate scshvm!")))
+    scshvm-location))
+
 (define (copy-vm-to-app-dir dir)
-  (run (cp /usr/local/lib/scsh/scshvm ,dir)))
+  (let ((scshvm-path (locate-scshvm)))
+    (run (cp ,scshvm-path ,dir))))
 
 (define (dump-app-image proc image)
   (begin
@@ -29,17 +39,16 @@
     (prepend-shebang-lines-to-image image)))
 
 (define (prepend-shebang-lines-to-image image)
-  (let* ((shebang #<<EOF
-#!/usr/local/lib/scsh/scshvm \
--h 8000000 -o  /usr/local/lib/scsh/scshvm -i
-
-EOF
-)
-	 (tmpdir (getenv "TMPDIR"))
-	 (shebang-file (string-append tmpdir "scsh-shebang.txt"))
-	 (image-orig (string-append image ".orig")))
+  (let* ((scshvm-path (locate-scshvm))
+         (newline-s (list->string '(#\newline)))
+         (shebang (string-append "#!" scshvm-path " \\" newline-s
+                                 "-h 8000000 -o  " scshvm-path " -i "
+                                 newline-s newline-s))
+         (tmpdir (getenv "TMPDIR"))
+         (shebang-file (string-append tmpdir "scsh-shebang.txt"))
+         (image-orig (string-append image ".orig")))
     (run (echo ,shebang) (> ,shebang-file))	; save shebang in temp file
-    (run (mv ,image ,image-orig))		; 
+    (run (mv ,image ,image-orig))
     (run (cat ,shebang-file ,image-orig) (> ,image))))
 
 (define (make-user-binary-name app-name)
