@@ -25,7 +25,8 @@ Public procedures
   the shell.  Since *PROC* is the main driver procedure that parses
   the command line, it must take a single list argument, by convention
   known as *PROG+ARGS*.  Note that this procedure is **destructive**,
-  that is, it will overwrite the previous scsh image file and symlink.
+  that is, it will overwrite any previous scsh image file and symlink
+  at that location.
 
 
 Example
